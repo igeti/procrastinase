@@ -2,7 +2,7 @@
 #include "procrastinase.hpp"
 #include <string>
 #include <set>
-#include <vector>
+#include <list>
 
 class ProgramList {
 public:
@@ -21,8 +21,8 @@ private:
 
 class WindowTitleSubstringList {
 public:
-	WindowTitleSubstringList(const std::vector<std::string>&);
+	WindowTitleSubstringList(const std::list<std::string>&);
 	bool satisfies(const ForeignWindow&);
 private:
-	std::vector<std::string> title_substrings;
+	std::list<std::string> title_substrings;
 };
