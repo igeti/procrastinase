@@ -1,5 +1,5 @@
 enum class ProgramRole {
-	White,
-	Grey,
-	White
+	white,
+	grey,
+	black
 };

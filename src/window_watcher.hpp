@@ -1,14 +1,15 @@
-#include <memory>
 #include "foreign_window.hpp"
+
+class WindowWatcherImpl;
 
 class WindowWatcher {
 public:
 	void run();
-	void onWindowTitleChange(ForeignWindow&);
-	void onActiveWindowChange(ForeignWindow&);
+	void window_title_changed(const ForeignWindow&);
+	void active_window_changed(const ForeignWindow&);
 private:
 	double work_to_play;
-	time_t play_credit_left;
+	int play_credit_left_ms; // QTimer accepts int
 	// TODO: alarm sound object & program list object
 	std::unique_ptr<WindowWatcherImpl> impl;
-}
+};
