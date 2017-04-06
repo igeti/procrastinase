@@ -1,7 +1,7 @@
 #include <memory>
 #include <string>
 
-class ForeignWindowImpl;
+struct ForeignWindowImpl;
 
 class ForeignWindow {
 // only WW has enough access to system guts to access window IDs
