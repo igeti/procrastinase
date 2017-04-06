@@ -4,3 +4,32 @@ project(
 	Procrastinase
 	LANGUAGES CXX
 )
+
+# enable C++11 support in compiler 
+if (CMAKE_VERSION VERSION_LESS "3.1")
+	if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+		set (CMAKE_CXX_FLAGS "--std=c++11 ${CMAKE_CXX_FLAGS}")
+	endif ()
+else ()
+	set (CMAKE_CXX_STANDARD 11)
+endif ()
+
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+	message(FATAL_ERROR "Win32 interface isn't yet implemented")
+elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
+	message(FATAL_ERROR "Cocoa interface isn't yet implemented")
+else()
+	find_library(XCB_LIB xcb)
+	find_path(XCB_H xcb/xcb.h)
+	if (
+		(NOT ${XCB_H} STREQUAL "XCB_H_NOTFOUND")
+		AND (NOT ${XCB_LIB} STREQUAL "XCB_LIB_NOTFOUND")
+	)
+		include_directories(${XCB_H})
+		add_library(foreign_window "src/foreign_window_xcb.cpp")
+		target_link_libraries(foreign_window ${XCB_LIB})
+	else()
+		message(FATAL_ERROR "Your target OS isn't Win32 or MacOS and XCB can't be found")
+	endif()
+endif()
+
