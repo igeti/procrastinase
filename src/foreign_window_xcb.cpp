@@ -2,6 +2,8 @@
 #include "private_xcb.h"
 #include <stdexcept>
 #include <memory>
+#include <sys/types.h> // pid_t
+#include <cmath> // ceil
 
 const size_t title_length = 4096; // FIXME: what happens if I pass 0?
 
@@ -28,6 +30,21 @@ std::string ForeignWindow::get_window_title() {
 		} else throw runtime_error("xcb_get_property returned nullptr and no error");
 	}
 
-	// no need to free the value?
+	// XXX: no need to free the value?
 	return std::string(reinterpret_cast<char*>(xcb_get_property_value(title_reply.get())));
+}
+
+std::string ForeignWindow::get_proram_path() {
+	using std::unique_ptr;
+	using std::runtime_error;
+
+	xcb_generic_error_t *err = nullptr; // can't use unique_ptr here because get_property_reply overwrites pointer value
+
+	xcb_get_property_cookie_t title_cookie = xcb_get_property(
+		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_atoms::CARDINAL,
+		0, std::ceil(float(sizeof(pid_t))/sizeof(uint32_t)) /* FIXME: how much is a CARDINAL? */
+	);
+
+	throw runtime_error("FIXME: how to translate time_t into executable path on POSIX?");
+	return std::string("");
 }

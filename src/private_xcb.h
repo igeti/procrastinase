@@ -10,4 +10,5 @@ struct XCB_atoms { // WindowWatcher should fill it while being constructed
 	static xcb_atom_t NET_WM_NAME;
 	static xcb_atom_t CARDINAL;
 	static xcb_atom_t UTF8_STRING;
+	static xcb_atom_t NET_WM_PID;
 };
