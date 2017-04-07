@@ -1,6 +1,6 @@
 #include "foreign_window.hpp"
-#include <xcb/xcb.h>
+#include "private_xcb.h"
 
-struct ForeignWindowImpl {
-	xcb_window_t wid;
-};
+ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImpl) {
+	*impl = impl_; /* you know what you're doing */
+}
