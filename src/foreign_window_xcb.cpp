@@ -30,7 +30,7 @@ std::string ForeignWindow::get_window_title() {
 		} else throw runtime_error("xcb_get_property returned nullptr and no error");
 	}
 
-	// XXX: no need to free the value?
+	// XXX: property_value shouldn't be freed: it's part of the title_reply memory block
 	return std::string(reinterpret_cast<char*>(xcb_get_property_value(title_reply.get())));
 }
 
