@@ -25,7 +25,7 @@ struct WindowWatcherImpl {
 		}
 		return atom_reply->atom;
 	}
-	WindowWatcherImpl() :conn(nullptr) {}
+	WindowWatcherImpl() :conn{nullptr,&xcb_disconnect} {}
 };
 
 WindowWatcher::WindowWatcher() {
