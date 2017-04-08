@@ -52,7 +52,7 @@ std::string ForeignWindow::get_program_path() {
 	xcb_generic_error_t *err = nullptr; // can't use unique_ptr here because get_property_reply overwrites pointer value
 
 	xcb_get_property_cookie_t pid_cookie = xcb_get_property(
-		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_atoms::CARDINAL,
+		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_ATOM_CARDINAL,
 		0, std::ceil(float(sizeof(pid_t))/sizeof(uint32_t)) /* FIXME: how much is a CARDINAL? */
 	);
 	unique_ptr<xcb_get_property_reply_t> pid_reply {xcb_get_property_reply(impl->conn, pid_cookie, &err)};
