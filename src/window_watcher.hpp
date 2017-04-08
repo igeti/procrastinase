@@ -1,9 +1,10 @@
 #include "foreign_window.hpp"
 
-class WindowWatcherImpl;
+struct WindowWatcherImpl;
 
 class WindowWatcher {
 public:
+	WindowWatcher();
 	void run();
 	void window_title_changed(const ForeignWindow&);
 	void active_window_changed(const ForeignWindow&);

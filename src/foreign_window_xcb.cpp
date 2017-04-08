@@ -1,6 +1,6 @@
 #define _POSIX_C_SOURCE 200809L // readlink
 #include "foreign_window.hpp"
-#include "private_xcb.h"
+#include "private_xcb.hpp"
 #include <stdexcept>
 #include <memory>
 #include <sys/types.h> // pid_t
