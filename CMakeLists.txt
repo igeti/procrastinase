@@ -14,6 +14,11 @@ else ()
 	set (CMAKE_CXX_STANDARD 11)
 endif ()
 
+# enable full warnings
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	set (CMAKE_CXX_FLAGS "-Wall -pedantic ${CMAKE_CXX_FLAGS}")
+endif ()
+
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 	message(FATAL_ERROR "Win32 interface isn't yet implemented")
 elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
