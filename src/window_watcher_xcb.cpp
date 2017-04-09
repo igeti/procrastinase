@@ -4,12 +4,14 @@
 #include <memory>
 #include <stdexcept>
 
+// static member storage
 xcb_atom_t XCB_atoms::NET_ACTIVE_WINDOW;
 xcb_atom_t XCB_atoms::NET_WM_NAME;
 xcb_atom_t XCB_atoms::UTF8_STRING;
 xcb_atom_t XCB_atoms::NET_WM_PID;
 
 struct WindowWatcherImpl {
+	// ewww, why did I have to wrap this is std::function?
 	std::unique_ptr<xcb_connection_t, std::function<decltype(xcb_disconnect)>> conn;
 
 	xcb_atom_t get_atom(std::string atom_name) {
