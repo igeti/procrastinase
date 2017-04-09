@@ -7,7 +7,10 @@ project(
 
 # enable C++11 support in compiler 
 if (CMAKE_VERSION VERSION_LESS "3.1")
-	if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	if (
+		(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+		OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	)
 		set (CMAKE_CXX_FLAGS "--std=c++11 ${CMAKE_CXX_FLAGS}")
 	endif ()
 else ()
@@ -15,7 +18,10 @@ else ()
 endif ()
 
 # enable full warnings
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if (
+	(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	OR (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+)
 	set (CMAKE_CXX_FLAGS "-Wall -pedantic ${CMAKE_CXX_FLAGS}")
 endif ()
 
