@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="66cm" height="30cm" viewBox="-90 -127 1318 584" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="378.478" y="298.022" width="171.7" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="378.478" y="298.022" width="171.7" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="464.328" y="314.022">&lt;&lt;Entity&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="464.328" y="333.022">ForeignWindow</text>
+    <rect style="fill: #ffffff" x="378.478" y="342.022" width="171.7" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="378.478" y="342.022" width="171.7" height="8"/>
+    <rect style="fill: #ffffff" x="378.478" y="350.022" width="171.7" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="378.478" y="350.022" width="171.7" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="381.478" y="364.022">+getProgram(): string</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="381.478" y="380.022">+getTitle(): string</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="381.478" y="396.022">+kill(): void</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="32.1074" y="70" width="364.2" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="32.1074" y="70" width="364.2" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="214.207" y="86">&lt;&lt;Thread&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="214.207" y="105">WindowWatcher</text>
+    <rect style="fill: #ffffff" x="32.1074" y="114" width="364.2" height="100"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="32.1074" y="114" width="364.2" height="100"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="128">+work_play_ratio: real</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="144">+play_credit_left: time</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="160">+program_list: ProgramList[1..*]</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="176">-alarm: WarningSound</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="192">-timers: Timer</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="208">-impl: WindowWatcherImpl</text>
+    <rect style="fill: #ffffff" x="32.1074" y="214" width="364.2" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="32.1074" y="214" width="364.2" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="228">+mainLoop(): void</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="244">+onTitleChange(wnd:ForeignWindow): void</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="35.1074" y="260">+onActiveWindowChange(wnd:ForeignWindow): void</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="214.207,267.006 214.207,278.011 464.328,278.011 464.328,290.31 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="459.328,277.663 464.328,293.663 469.328,277.663 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="616.098" y="148.516" width="279.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="616.098" y="148.516" width="279.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="755.848" y="167.516">ProgramList</text>
+    <rect style="fill: #ffffff" x="616.098" y="176.516" width="279.5" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="616.098" y="176.516" width="279.5" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="619.098" y="190.516">+type: ProgramRole</text>
+    <rect style="fill: #ffffff" x="616.098" y="196.516" width="279.5" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="616.098" y="196.516" width="279.5" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="619.098" y="210.516">+Satisfies(wnd:ForeignWindow): bool</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="619.098" y="226.516">+save(path:string): void</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="755.848,233.521 755.848,261.268 464.328,261.268 464.328,290.31 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="459.328,277.663 464.328,293.663 469.328,277.663 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="1045" y="-39" width="127.1" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1045" y="-39" width="127.1" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="1108.55" y="-23">&lt;&lt;Enumeration&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1108.55" y="-4">ProgramRole</text>
+    <rect style="fill: #ffffff" x="1045" y="5" width="127.1" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1045" y="5" width="127.1" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1048" y="19">+White</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1048" y="35">+Grey</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="1048" y="51">+Black</text>
+    <rect style="fill: #ffffff" x="1045" y="57" width="127.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="1045" y="57" width="127.1" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="755.848,147.511 755.848,110.759 1108.55,110.759 1108.55,72.7117 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1113.55,85.3591 1108.55,69.3591 1103.55,85.3591 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="515.73" y="-125.289" width="479.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="515.73" y="-125.289" width="479.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="755.58" y="-106.289">Statistics</text>
+    <rect style="fill: #ffffff" x="515.73" y="-97.2894" width="479.7" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="515.73" y="-97.2894" width="479.7" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="-83.2894">-db: Database</text>
+    <rect style="fill: #ffffff" x="515.73" y="-77.2894" width="479.7" height="164"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="515.73" y="-77.2894" width="479.7" height="164"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="-63.2894">+addProgramUsageInterval(program:string,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="-47.2894">                         window_title:string,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="-31.2894">                         start:time,end:time,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="-15.2894">                         type:ProgramRole): void</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="0.7106">+clean(): void</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="16.7106">+getWorkToPlayTime(timespan:time): real</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="32.7106">+getProgramTimeDistribution(in timespan:time,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="48.7106">                            out program:string[0..*],</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="64.7106">                            out time_spent:time[0..*],</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.73" y="80.7106">                            out role:ProgramRole[0..*]): void</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="397.313,168 452.018,168 452.018,-19.2894 508.017,-19.2894 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="495.37,-14.2894 511.37,-19.2894 495.37,-24.2894 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="978.754" y="182.238" width="248.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="978.754" y="182.238" width="248.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="1103.1" y="201.238">ProgramPathSet</text>
+    <rect style="fill: #ffffff" x="978.754" y="210.238" width="248.7" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="978.754" y="210.238" width="248.7" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="981.754" y="224.238">+path: string[1..*]</text>
+    <rect style="fill: #ffffff" x="978.754" y="230.238" width="248.7" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="978.754" y="230.238" width="248.7" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="981.754" y="244.238">+Contains(program:string): bool</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="675.934" y="303.1" width="279.5" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="675.934" y="303.1" width="279.5" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="815.684" y="322.1">WindowTitleSubstringList</text>
+    <rect style="fill: #ffffff" x="675.934" y="331.1" width="279.5" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="675.934" y="331.1" width="279.5" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="678.934" y="345.1">+title_substring: string[1..*]</text>
+    <rect style="fill: #ffffff" x="675.934" y="351.1" width="279.5" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="675.934" y="351.1" width="279.5" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="678.934" y="365.1">+Matches(window_title:string): bool</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="914.843,190.516 945.176,190.516 945.176,216.238 977.746,216.238 "/>
+    <polygon style="fill: #ffffff" points="914.843,182.516 898.843,190.516 914.843,198.516 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="914.843,182.516 898.843,190.516 914.843,198.516 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="755.848,251.757 755.848,275.806 815.684,275.806 815.684,302.091 "/>
+    <polygon style="fill: #ffffff" points="763.848,251.757 755.848,235.757 747.848,251.757 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="763.848,251.757 755.848,235.757 747.848,251.757 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="397.313,168 498.701,168 498.701,190.516 610.617,190.516 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="596.853,198.516 612.853,190.516 596.853,182.516 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="500.701" y="176.258"/>
+    <polygon style="fill: #000000" points="502.701,176.258 502.701,168.258 510.701,172.258 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="401.313" y="165"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="595.089" y="187.516"> program_list</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="595.089" y="203.516">1..*</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="203" y="-95" width="205.85" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="203" y="-95" width="205.85" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="305.925" y="-79">&lt;&lt;Window&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="305.925" y="-60">ProcrastinaseWindow</text>
+    <rect style="fill: #ffffff" x="203" y="-51" width="205.85" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="203" y="-51" width="205.85" height="8"/>
+    <rect style="fill: #ffffff" x="203" y="-43" width="205.85" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="203" y="-43" width="205.85" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="409.856,-65 458.289,-65 458.289,-19.2894 508.017,-19.2894 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="495.37,-14.2894 511.37,-19.2894 495.37,-24.2894 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="305.925,-29.5708 305.925,31.4992 214.208,31.4992 214.208,64.5348 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="313.925,-15.8069 305.925,-31.8069 297.925,-15.8069 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="206.208,50.7708 214.208,66.7709 222.208,50.7709 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="260.067" y="28.4992">Controls</text>
+    <polygon style="fill: #000000" points="225.267,28.4992 225.267,20.4992 217.267,24.4992 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="316.925" y="-22.043"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="225.208" y="65.0069"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke-dasharray: 8; stroke: #000000" points="996.437,-19.2894 1016.21,-19.2894 1016.21,13 1037.29,13 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="1024.64,18 1040.64,13 1024.64,8 "/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="54.1074" y="292.71" width="156.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="54.1074" y="292.71" width="156.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="132.257" y="311.71">WarningSound</text>
+    <rect style="fill: #ffffff" x="54.1074" y="320.71" width="156.3" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="54.1074" y="320.71" width="156.3" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="57.1074" y="334.71">+sound_file: string</text>
+    <rect style="fill: #ffffff" x="54.1074" y="340.71" width="156.3" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="54.1074" y="340.71" width="156.3" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="57.1074" y="354.71">+play(): void</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="57.1074" y="370.71">+stop(): void</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="214.207,267.006 214.207,279.355 132.257,279.355 132.257,291.705 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="173.232" y="276.355"/>
+    <polygon style="fill: #000000" points="175.232,276.355 175.232,268.355 183.232,272.355 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="218.207" y="279.006"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.257" y="271.705"> alarm</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="136.257" y="287.705">1</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="-88.411" y="-98.4104" width="194.8" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-88.411" y="-98.4104" width="194.8" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="8.989" y="-82.4104">&lt;&lt;Thread&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="8.989" y="-63.4104">Timer</text>
+    <rect style="fill: #ffffff" x="-88.411" y="-54.4104" width="194.8" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-88.411" y="-54.4104" width="194.8" height="8"/>
+    <rect style="fill: #ffffff" x="-88.411" y="-46.4104" width="194.8" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-88.411" y="-46.4104" width="194.8" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-85.411" y="-32.4104">+add_absolute(when:time)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-85.411" y="-16.4104">+add_relative(diff:time)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="40.9152" y="396.3" width="196.55" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="40.9152" y="396.3" width="196.55" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="139.19" y="412.3">&lt;&lt;Thread&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="139.19" y="431.3">WindowWatcherImpl</text>
+    <rect style="fill: #ffffff" x="40.9152" y="440.3" width="196.55" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="40.9152" y="440.3" width="196.55" height="8"/>
+    <rect style="fill: #ffffff" x="40.9152" y="448.3" width="196.55" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="40.9152" y="448.3" width="196.55" height="8"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="214.207,68.994 214.207,29.7945 8.989,29.7945 8.989,-9.40491 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="111.598" y="26.7945">messages</text>
+    <polygon style="fill: #000000" points="144.398,26.7945 144.398,18.7945 152.398,22.7945 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="218.207" y="64.994"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="12.989" y="2.59509"> timers</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="12.989" y="18.5951">1</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="31.1055,168 -29.324,168 -29.324,426.3 39.9063,426.3 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-27.324" y="294.15">messages</text>
+    <polygon style="fill: #000000" points="36.276,294.15 36.276,286.15 44.276,290.15 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="27.1055" y="165"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="35.9063" y="423.3"> impl</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="35.9063" y="439.3">1</text>
+  </g>
+</svg>
