@@ -2,22 +2,39 @@
 #include <condition_variable>
 #include <chrono>
 #include <thread>
-#include <list>
+#include <queue>
 #include <algorithm>
 #include <cassert>
+
+template <class T, class U, class V>
+class editable_priority_queue : public std::priority_queue<T,U,V> {
+	using std::priority_queue<T,U,V>::c;
+public:
+	T & push(const T & val) {
+		std::priority_queue<T,U,V>::push(val);
+		return *std::find(c.begin(), c.end(), val);
+	}
+	void remove(const T & val) {
+		std::remove(c.begin(), c.end(), val);
+	}
+};
 
 template <class T>
 class thr_timer {
 public:
 	class timer {
+	private:
 		friend class thr_timer;
 		std::chrono::steady_clock::time_point time;
-		T & cb;
+		T * cb;
 		timer(std::chrono::steady_clock::time_point time_, T & cb_)
 			: time(time_), cb(cb_) {}
 	public:
-		bool operator==(const timer& other) {
-			return (time == other.time) && (&cb == &other.cb);
+		bool operator> (const timer& other) const {
+			return (time > other.time);
+		}
+		bool operator== (const timer& other) const {
+			return (time == other.time) && (cb == other.cb);
 		}
 	};
 	timer * add_rel(std::chrono::steady_clock::duration diff, T & cb) {
@@ -27,13 +44,10 @@ public:
 		timer * ret = nullptr;
 		{
 			std::unique_lock<std::mutex> lock(list_mutex);
-			timers.push_back({when, cb});
-			recalculate_wakeup();
-			ret = &timers.back();
+			ret = &timers.push({when, cb});
 		}
 		/*
 		 * After changing timers,
-		 * recalculate next_wakeup,
 		 * set changes_pending = true,
 		 * wait on change_noted while changes_pending.
 		 */
@@ -46,11 +60,10 @@ public:
 		std::unique_lock<std::mutex> lock(list_mutex);
 		timers.remove(**t);
 		*t = nullptr;
-		recalculate_wakeup();
 	}
 	thr_timer()
 		: lock(tmutex), changes_pending(false), terminating(false),
-		next_wakeup(std::chrono::steady_clock::now()), waiter(&thr_timer::loop, this, next_wakeup) {}
+		waiter(&thr_timer::loop, this) {}
 	~thr_timer() {
 		terminating = true;
 		changes_pending = true;
@@ -63,39 +76,34 @@ private:
 	std::unique_lock<std::timed_mutex> lock; // keep mutex locked by owning thread most of the time
 	bool changes_pending;
 	bool terminating;
-	std::chrono::steady_clock::time_point next_wakeup;
 	std::condition_variable_any change_noted;
-	std::list<timer> timers;
+	editable_priority_queue<timer,std::vector<timer>,std::greater<timer>> timers;
 	std::thread waiter;
-	void recalculate_wakeup() {
-		if (timers.empty()) return;
-		next_wakeup = timers.front().time;
-		for (timer& t: timers)
-			if (t.time < next_wakeup) next_wakeup = t.time;
-	}
-	void loop(std::chrono::steady_clock::time_point wakeup) {
+	void loop() {
 		for(/**/;;/**/) { // <-- behold the ASCII Cthulhu
 			/*
 			 * Most of the time, keep trying to unlock the mutex with timeout
 			 * set to the closest timer expiration.
 			 */
-			std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+			std::chrono::steady_clock::time_point wait_until = std::chrono::steady_clock::now();
+			bool wait_indefinite = true;
+			{
+				std::unique_lock<std::mutex> lock(list_mutex);
+				wait_indefinite = timers.empty();
+				if (!wait_indefinite)
+					wait_until = timers.top().time;
+			}
 			bool locked = false;
-			// wakeup in the past means that there are no timers set => just keep waiting until something changes
-			if (now < wakeup) {
-				locked = tmutex.try_lock_until(wakeup);
-			} else {
+			if (wait_indefinite) {
 				tmutex.lock();
 				locked = true;
+			} else {
+				locked = tmutex.try_lock_until(wait_until);
 			}
-			now = std::chrono::steady_clock::now(); // it might have taken a lot of time to get there
 			if (locked) {
 				/*
-				 * If succeeded, some change has occured and we need to record
-				 * the new timeout, set changes_pending=false, fire change_noted,
-				 * then resume locking. If terminating, return.
+				 * Lock succeeded: maybe we're terminating?
 				 */
-				 wakeup = next_wakeup;
 				 changes_pending = false;
 				 bool local_terminating = terminating; // can't use terminating after unlock
 				 tmutex.unlock();
@@ -103,28 +111,16 @@ private:
 				 if (local_terminating) return;
 			}
 			/*
-			 * If failed, timer has fired and we need to call the callback(s).
-			 * Even if not, check for expired timers anyway. Otherwise, it
-			 * would be possible to set a timer in the past and have it never fire
-			 * and clog the queue because wakeup < now.
+			 * Whatever happens, check the queue for expired timers.
 			 */
 			{
 				std::unique_lock<std::mutex> lock(list_mutex);
-				now = std::chrono::steady_clock::now(); // and maybe here, too
-				if (timers.empty()) continue;
-				for (
-					auto t = std::find_if(
-						timers.begin(), timers.end(),
-						[now](timer&t){ return t.time <= now; }
-					)
-					;t != timers.end();
-					t = std::find_if(
-						timers.begin(), timers.end(),
-						[now](timer&t){ return t.time <= now; }
-					)
+				while (
+					timers.empty()
+					&& timers.top().time <= std::chrono::steady_clock::now()
 				) {
-					t->cb();
-					timers.erase(t);
+					std::thread(timers.top().cb).detach();
+					timers.pop();
 				}
 			}
 		}
