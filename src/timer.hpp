@@ -6,15 +6,18 @@
 #include <algorithm>
 #include <cassert>
 
-#include <iostream>
-#include <iomanip>
-template<class T> void hexdump(const T & arg) {
-	unsigned char* wtf = (unsigned char*)&arg;
-	std::cerr << (void*)wtf << "\t";
-	for (size_t i = 0; i < sizeof(T); i++)
-		std::cerr << std::setfill('0') << std::setw(2) << std::hex << (unsigned short)(wtf[i]);
-	std::cerr << std::endl;
-}
+/*
+Usage:
+
+thr_timer<callback_type> tmr;
+
+Use tmr.add_rel or tmr.add_abs to add timers and remember their return values.
+Use tmr.cancel(timer) to cancel existing timers. After cancellation, you can
+assign a different timer to the same variable. Use operator bool overload to
+check if a given timer is active. Cancelling a dead timer is no-op.
+Once thr_timer moves out of scope, it stops the watcher threads and cancels
+the remaining timers.
+*/
 
 template <class T>
 class thr_timer {
