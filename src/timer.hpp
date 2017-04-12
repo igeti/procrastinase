@@ -6,18 +6,14 @@
 #include <algorithm>
 #include <cassert>
 
-template <class T, class U, class V>
-class editable_priority_queue : public std::priority_queue<T,U,V> {
-	using std::priority_queue<T,U,V>::c;
-public:
-	T & push(const T & val) {
-		std::priority_queue<T,U,V>::push(val);
-		return *std::find(c.begin(), c.end(), val);
-	}
-	void remove(const T & val) {
-		std::remove(c.begin(), c.end(), val);
-	}
-};
+#include <iostream>
+template<class T> void hexdump(const T & arg) {
+	unsigned char* wtf = (unsigned char*)&arg;
+	std::cerr << (void*)wtf << "\t";
+	for (size_t i = 0; i < sizeof(T); i++)
+		std::cerr << std::hex << (int)wtf[i];
+	std::cerr << std::endl;
+}
 
 template <class T>
 class thr_timer {
@@ -27,24 +23,29 @@ public:
 		friend class thr_timer;
 		std::chrono::steady_clock::time_point time;
 		T * cb;
-		timer(std::chrono::steady_clock::time_point time_, T & cb_)
+		timer(std::chrono::steady_clock::time_point time_=std::chrono::steady_clock::now(), T * cb_=nullptr)
 			: time(time_), cb(cb_) {}
 	public:
-		bool operator> (const timer& other) const {
+		bool operator >(const timer& other) const {
 			return (time > other.time);
 		}
-		bool operator== (const timer& other) const {
+		bool operator ==(const timer& other) const {
+			hexdump(*this);
+			hexdump(other);
+			hexdump((time == other.time) && (cb == other.cb)); // why the FUCK does it not std::remove a timer after I return true?
 			return (time == other.time) && (cb == other.cb);
 		}
+		operator bool() const { // timer is "dead" if callback is empty
+			return cb;
+		}
 	};
-	timer * add_rel(std::chrono::steady_clock::duration diff, T & cb) {
+	timer add_rel(std::chrono::steady_clock::duration diff, T & cb) {
 		return add_abs(std::chrono::steady_clock::now() + diff, cb);
 	}
-	timer * add_abs(std::chrono::steady_clock::time_point when, T & cb) {
-		timer * ret = nullptr;
+	timer add_abs(std::chrono::steady_clock::time_point when, T & cb) {
 		{
 			std::unique_lock<std::mutex> lock(list_mutex);
-			ret = &timers.push({when, cb});
+			timers.push({when, &cb});
 		}
 		/*
 		 * After changing timers,
@@ -53,13 +54,14 @@ public:
 		 */
 		changes_pending = true;
 		while (changes_pending) change_noted.wait(lock);
-		return ret;
+		// return a copy because queue+vector invalidates pointers/references on a whim
+		return {when, &cb};
 	}
-	void cancel(timer ** t) {
-		assert(t);
+	void cancel(timer & t) {
+		if (!t) return;
 		std::unique_lock<std::mutex> lock(list_mutex);
-		timers.remove(**t);
-		*t = nullptr;
+		timers.remove(t);
+		t.cb = nullptr;
 	}
 	thr_timer()
 		: lock(tmutex), changes_pending(false), terminating(false),
@@ -71,6 +73,15 @@ public:
 		waiter.detach();
 	}
 private:
+	template <class W, class U, class V>
+	class editable_priority_queue : public std::priority_queue<W,U,V> {
+	private:
+		using std::priority_queue<W,U,V>::c;
+	public:
+		void remove(const W & val) {
+			std::remove(c.begin(), c.end(), val);
+		}
+	};
 	std::timed_mutex tmutex;
 	std::mutex list_mutex; // list access is additionally guarded
 	std::unique_lock<std::timed_mutex> lock; // keep mutex locked by owning thread most of the time
@@ -116,10 +127,11 @@ private:
 			{
 				std::unique_lock<std::mutex> lock(list_mutex);
 				while (
-					timers.empty()
+					!timers.empty()
 					&& timers.top().time <= std::chrono::steady_clock::now()
 				) {
-					std::thread(timers.top().cb).detach();
+					assert(timers.top().cb);
+					std::thread(*timers.top().cb).detach(); // whatever it was, start it in the background
 					timers.pop();
 				}
 			}
