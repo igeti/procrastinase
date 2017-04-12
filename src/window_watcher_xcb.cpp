@@ -16,7 +16,7 @@ struct WindowWatcherImpl {
 
 	xcb_atom_t get_atom(std::string atom_name) {
 		xcb_intern_atom_cookie_t atom_cookie;
-		std::unique_ptr<xcb_intern_atom_reply_t> atom_reply{nullptr};
+		std::unique_ptr<xcb_intern_atom_reply_t,decltype(&free)> atom_reply{nullptr,&free};
 		xcb_generic_error_t *err;
 
 		atom_cookie = xcb_intern_atom(conn.get(), 0, atom_name.length(), atom_name.c_str());

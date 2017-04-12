@@ -23,7 +23,7 @@ ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImp
 		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_ATOM_CARDINAL,
 		0, std::ceil(float(sizeof(pid_t))/sizeof(uint32_t)) /* FIXME: how much is a CARDINAL? */
 	);
-	unique_ptr<xcb_get_property_reply_t> pid_reply {xcb_get_property_reply(impl->conn, pid_cookie, &err)};
+	unique_ptr<xcb_get_property_reply_t,decltype(free)> pid_reply {xcb_get_property_reply(impl->conn, pid_cookie, &err),&free};
 	if (!pid_reply) {
 		if (err) {
 			free(err);
@@ -44,7 +44,7 @@ std::string ForeignWindow::get_window_title() {
 		0, title_path_length/sizeof(uint32_t) /* FIXME: what happens if I pass 0? */
 	);
 
-	unique_ptr<xcb_get_property_reply_t> title_reply {xcb_get_property_reply(impl->conn, title_cookie, &err)};
+	unique_ptr<xcb_get_property_reply_t,decltype(&free)> title_reply {xcb_get_property_reply(impl->conn, title_cookie, &err),&free};
 	if (!title_reply) {
 		if (err) {
 			free(err);
