@@ -7,11 +7,12 @@
 #include <cassert>
 
 #include <iostream>
+#include <iomanip>
 template<class T> void hexdump(const T & arg) {
 	unsigned char* wtf = (unsigned char*)&arg;
 	std::cerr << (void*)wtf << "\t";
 	for (size_t i = 0; i < sizeof(T); i++)
-		std::cerr << std::hex << (int)wtf[i];
+		std::cerr << std::setfill('0') << std::setw(2) << std::hex << (unsigned short)(wtf[i]);
 	std::cerr << std::endl;
 }
 
@@ -30,9 +31,6 @@ public:
 			return (time > other.time);
 		}
 		bool operator ==(const timer& other) const {
-			hexdump(*this);
-			hexdump(other);
-			hexdump((time == other.time) && (cb == other.cb)); // why the FUCK does it not std::remove a timer after I return true?
 			return (time == other.time) && (cb == other.cb);
 		}
 		operator bool() const { // timer is "dead" if callback is empty
@@ -79,7 +77,7 @@ private:
 		using std::priority_queue<W,U,V>::c;
 	public:
 		void remove(const W & val) {
-			std::remove(c.begin(), c.end(), val);
+			c.erase(std::remove(c.begin(), c.end(), val), c.end());
 		}
 	};
 	std::timed_mutex tmutex;
