@@ -52,11 +52,12 @@ std::string ForeignWindow::get_window_title() {
 		} else throw runtime_error("xcb_get_property returned nullptr and no error");
 	}
 
+	// FIXME: is it always \0-terminated?
 	// XXX: property_value shouldn't be freed even if it's a string: it's part of the title_reply memory block
 	return std::string(reinterpret_cast<char*>(xcb_get_property_value(title_reply.get())));
 }
 
-static std::string executable_path(pid_t pid) {
+static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl calls on *BSD and proc_pidpath on macOS
 	std::string link {"/proc/"};
 	link += pid;
 	link += "/exe";
