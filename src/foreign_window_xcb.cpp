@@ -21,7 +21,7 @@ ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImp
 
 	xcb_get_property_cookie_t pid_cookie = xcb_get_property(
 		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_ATOM_CARDINAL,
-		0, std::ceil(float(sizeof(pid_t))/sizeof(uint32_t)) /* FIXME: how much is a CARDINAL? */
+		0, sizeof(uint32_t)/sizeof(uint32_t) // judging by libxcb-ewmh, CARDINAL is one uint32_t
 	);
 	unique_ptr<xcb_get_property_reply_t,decltype(free)> pid_reply {xcb_get_property_reply(impl->conn, pid_cookie, &err),&free};
 	if (!pid_reply) {
@@ -30,7 +30,7 @@ ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImp
 			throw runtime_error("xcb_get_property returned error");
 		} else throw runtime_error("xcb_get_property returned nullptr and no error");
 	}
-	impl->pid = *reinterpret_cast<pid_t*>(xcb_get_property_value(pid_reply.get()));
+	impl->pid = *reinterpret_cast<uint32_t*>(xcb_get_property_value(pid_reply.get())); // now store the uint32_t in a pid_t
 }
 
 std::string ForeignWindow::get_window_title() {
