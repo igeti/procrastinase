@@ -27,6 +27,20 @@ struct WindowWatcherImpl {
 		}
 		return atom_reply->atom;
 	}
+
+	void active_window_thread(thr_queue<WindowEvent> & q) {
+		// open root window
+		// set event mask
+		// get events corresponding to PropertyNotify event, atom _NET_ACTIVE_WINDOW
+		// push them to the queue
+	}
+	void window_title_thread(thr_queue<WindowEvent> & q, const ForeignWindow & w) {
+		// FIXME: how to cancel this thread safely?
+		// FIXME: it seems that I'll need to create them for each active window
+		// open the window
+		// set event mask to PropertyNotify, atom _NET_WM_NAME
+		// push events to the queue
+	}
 	WindowWatcherImpl() :conn{nullptr,&xcb_disconnect} {}
 };
 
