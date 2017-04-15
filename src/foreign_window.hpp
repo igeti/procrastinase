@@ -2,10 +2,12 @@
 #include <string>
 
 struct ForeignWindowImpl;
+struct WindowWatcherImpl;
 
 class ForeignWindow {
 // only WW has enough access to system guts to access window IDs
 friend class WindowWatcher;
+friend struct WindowWatcherImpl;
 public:
 	void kill();
 	std::string get_window_title();

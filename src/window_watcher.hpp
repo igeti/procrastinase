@@ -5,7 +5,7 @@
 struct WindowWatcherImpl;
 
 struct WindowEvent {
-	enum class WindowEventType {
+	enum class Type {
 		new_active,
 		new_title,
 		alarm_timer,
@@ -13,10 +13,10 @@ struct WindowEvent {
 	} type;
 	ForeignWindow wnd;
 	std::string title;
-	WindowEvent(WindowEventType t, ForeignWindow && w)
+	WindowEvent(Type t, ForeignWindow && w)
 		: type(t), wnd(std::move(w)) {}
 	WindowEvent(std::string t, ForeignWindow && w)
-		: type(WindowEventType::new_title), wnd(std::move(w)), title(t) {}
+		: type(Type::new_title), wnd(std::move(w)), title(t) {}
 };
 
 class WindowWatcher {

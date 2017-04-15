@@ -39,8 +39,32 @@ struct WindowWatcherImpl {
 		}
 		// get events corresponding to PropertyNotify event, atom _NET_ACTIVE_WINDOW
 		std::unique_ptr<xcb_generic_event_t,decltype(&free)> event {nullptr,&free};
-//		while
-		// push them to the queue
+		for (event.reset(xcb_wait_for_event(conn.get())); event; event.reset(xcb_wait_for_event(conn.get()))) {
+			if (event->response_type == XCB_PROPERTY_NOTIFY) {
+				xcb_property_notify_event_t * pne = reinterpret_cast<xcb_property_notify_event_t*>(event.get());
+				if (pne->atom == XCB_atoms::NET_ACTIVE_WINDOW) {
+					// push them to the queue
+					/* FIXME this is copy-paste, TODO create a template method "get property and cast to value" from that */
+					xcb_generic_error_t *err = nullptr;
+					xcb_get_property_cookie_t aw_cookie = xcb_get_property(
+						conn.get(), 0, screen->root, XCB_atoms::NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW,
+						0, 1 /* xcb_window_t is <= uint32_t, trust libxcb-ewmh */
+					);
+					std::unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> aw_reply {
+						xcb_get_property_reply(conn.get(), aw_cookie, &err),
+						&free
+					};
+					if (!aw_reply) {
+						if (err) {
+							free(err);
+							throw std::runtime_error("xcb_get_property returned error");
+						} else throw std::runtime_error("xcb_get_property returned nullptr and no error");
+					}
+					xcb_window_t new_window = *reinterpret_cast<xcb_window_t*>(xcb_get_property_value(aw_reply.get()));
+					q.push({WindowEvent::Type::new_active, ForeignWindowImpl{conn.get(), new_window}});
+				}
+			}
+		}
 	}
 	void window_title_thread(thr_queue<WindowEvent> & q, const ForeignWindow & w) {
 		// FIXME: how to cancel this thread safely?
