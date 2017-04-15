@@ -19,15 +19,14 @@ Once thr_timer moves out of scope, it stops the watcher threads and cancels
 the remaining timers.
 */
 
-template <class T>
 class thr_timer {
 public:
 	class timer {
 	private:
 		friend class thr_timer;
 		std::chrono::steady_clock::time_point time;
-		T * cb;
-		timer(std::chrono::steady_clock::time_point time_=std::chrono::steady_clock::now(), T * cb_=nullptr)
+		std::function<void()> * cb;
+		timer(std::chrono::steady_clock::time_point time_=std::chrono::steady_clock::now(), std::function<void()> * cb_=nullptr)
 			: time(time_), cb(cb_) {}
 	public:
 		bool operator >(const timer& other) const {
@@ -40,10 +39,10 @@ public:
 			return cb;
 		}
 	};
-	timer add_rel(std::chrono::steady_clock::duration diff, T & cb) {
+	timer add_rel(std::chrono::steady_clock::duration diff, std::function<void()> & cb) {
 		return add_abs(std::chrono::steady_clock::now() + diff, cb);
 	}
-	timer add_abs(std::chrono::steady_clock::time_point when, T & cb) {
+	timer add_abs(std::chrono::steady_clock::time_point when, std::function<void()> & cb) {
 		{
 			std::unique_lock<std::mutex> lock(list_mutex);
 			timers.push({when, &cb});

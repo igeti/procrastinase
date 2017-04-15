@@ -29,15 +29,17 @@ struct WindowWatcherImpl {
 
 	void active_window_thread(thr_queue<WindowEvent> & q) {
 		// get the root window
-		xcb_window_t * screen = xcb_setup_roots_iterator(xcb_get_setup(conn.get())).data;
+		xcb_screen_t * screen = xcb_setup_roots_iterator(xcb_get_setup(conn.get())).data;
 		const uint32_t select_input_val[] = { XCB_EVENT_MASK_PROPERTY_CHANGE };
 		// "open" root window and set event mask
-		xcb_change_window_attributes_checked(conn, screen->root, XCB_CW_EVENT_MASK, select_input_val);
-		xcb_generic_error_t *error = xcb_request_check(connection, cookie);
+		xcb_void_cookie_t root_cookie = xcb_change_window_attributes_checked(conn.get(), screen->root, XCB_CW_EVENT_MASK, select_input_val);
+		xcb_generic_error_t *error = xcb_request_check(conn.get(), root_cookie);
 		if (error != nullptr) {
-			xcb_disconnect(connection);
+			throw std::runtime_error("Couldn't open root window"); // FIXME: this is impossible to catch from main thread
 		}
 		// get events corresponding to PropertyNotify event, atom _NET_ACTIVE_WINDOW
+		std::unique_ptr<xcb_generic_event_t,decltype(&free)> event {nullptr,&free};
+//		while
 		// push them to the queue
 	}
 	void window_title_thread(thr_queue<WindowEvent> & q, const ForeignWindow & w) {

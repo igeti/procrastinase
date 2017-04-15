@@ -30,6 +30,6 @@ private:
 	int play_credit_left_ms; // QTimer accepts int
 	// TODO: alarm sound object & program list object
 	thr_queue<WindowEvent> messages;
-	thr_timer<void (WindowWatcher::*)(const ForeignWindow&)> tmr;
+	thr_timer tmr;
 	std::unique_ptr<WindowWatcherImpl> impl;
 };
