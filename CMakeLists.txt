@@ -46,3 +46,7 @@ else()
 	message(FATAL_ERROR "${CMAKE_SYSTEM_NAME} isn't supported (yet?)")
 endif()
 
+set(PROCRASTINASE_SOURCES "src/window_watcher.cpp")
+
+add_executable(skeleton "src/skeleton.cpp" ${PROCRASTINASE_SOURCES})
+target_link_libraries(window_interface)

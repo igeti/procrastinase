@@ -1,6 +1,7 @@
 #include "foreign_window.hpp"
 #include "queue.hpp"
 #include "timer.hpp"
+#include <set> // FIXME: for now
 
 struct WindowWatcherImpl;
 
@@ -27,8 +28,9 @@ public:
 	void active_window_changed(const ForeignWindow&);
 private:
 	double work_to_play;
-	int play_credit_left_ms; // QTimer accepts int
+	std::chrono::steady_clock::duration play_credit_left_ms;
 	// TODO: alarm sound object & program list object
+	std::set<std::string> whitelist; // FIXME: for now
 	thr_queue<WindowEvent> messages;
 	thr_timer tmr;
 	std::unique_ptr<WindowWatcherImpl> impl;

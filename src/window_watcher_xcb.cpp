@@ -76,7 +76,7 @@ struct WindowWatcherImpl {
 	WindowWatcherImpl() :conn{nullptr,&xcb_disconnect} {}
 };
 
-WindowWatcher::WindowWatcher() {
+WindowWatcher::WindowWatcher() :impl(new WindowWatcherImpl) {
 	impl->conn.reset(xcb_connect(nullptr, nullptr));
 	if (!impl->conn) throw std::runtime_error("xcb_connect returned error");
 	XCB_atoms::NET_WM_NAME = impl->get_atom("_NET_WM_NAME");
