@@ -21,7 +21,7 @@ ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImp
 
 	xcb_get_property_cookie_t pid_cookie = xcb_get_property(
 		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_ATOM_CARDINAL,
-		0, sizeof(uint32_t)/sizeof(uint32_t) // judging by libxcb-ewmh, CARDINAL is one uint32_t
+		0, sizeof(uint32_t)/sizeof(uint32_t) // judging by libxcb-ewmh, CARDINAL == uint32_t
 	);
 	unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> pid_reply {xcb_get_property_reply(impl->conn, pid_cookie, &err),&free};
 	if (!pid_reply) {

@@ -11,8 +11,7 @@ xcb_atom_t XCB_atoms::UTF8_STRING;
 xcb_atom_t XCB_atoms::NET_WM_PID;
 
 struct WindowWatcherImpl {
-	// ewww, why did I have to wrap this is std::function?
-	std::unique_ptr<xcb_connection_t, std::function<decltype(xcb_disconnect)>> conn;
+	std::unique_ptr<xcb_connection_t, decltype(&xcb_disconnect)> conn;
 
 	xcb_atom_t get_atom(std::string atom_name) {
 		xcb_intern_atom_cookie_t atom_cookie;
@@ -29,8 +28,15 @@ struct WindowWatcherImpl {
 	}
 
 	void active_window_thread(thr_queue<WindowEvent> & q) {
-		// open root window
-		// set event mask
+		// get the root window
+		xcb_window_t * screen = xcb_setup_roots_iterator(xcb_get_setup(conn.get())).data;
+		const uint32_t select_input_val[] = { XCB_EVENT_MASK_PROPERTY_CHANGE };
+		// "open" root window and set event mask
+		xcb_change_window_attributes_checked(conn, screen->root, XCB_CW_EVENT_MASK, select_input_val);
+		xcb_generic_error_t *error = xcb_request_check(connection, cookie);
+		if (error != nullptr) {
+			xcb_disconnect(connection);
+		}
 		// get events corresponding to PropertyNotify event, atom _NET_ACTIVE_WINDOW
 		// push them to the queue
 	}
