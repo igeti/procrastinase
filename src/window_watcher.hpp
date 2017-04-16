@@ -26,6 +26,8 @@ public:
 	void run();
 	void window_title_changed(const ForeignWindow&);
 	void active_window_changed(const ForeignWindow&);
+	void set_whitelist(const std::set<std::string>&);
+	~WindowWatcher();
 private:
 	double work_to_play;
 	std::chrono::steady_clock::duration play_credit_left_ms;

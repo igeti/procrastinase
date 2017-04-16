@@ -49,4 +49,4 @@ endif()
 set(PROCRASTINASE_SOURCES "src/window_watcher.cpp")
 
 add_executable(skeleton "src/skeleton.cpp" ${PROCRASTINASE_SOURCES})
-target_link_libraries(window_interface)
+target_link_libraries(skeleton window_interface)

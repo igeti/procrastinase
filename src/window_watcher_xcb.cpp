@@ -84,3 +84,10 @@ WindowWatcher::WindowWatcher() :impl(new WindowWatcherImpl) {
 	XCB_atoms::UTF8_STRING = impl->get_atom("UTF8_STRING");
 	XCB_atoms::NET_WM_PID = impl->get_atom("_NET_WM_PID");
 }
+
+WindowWatcher::~WindowWatcher() = default;
+
+void WindowWatcher::run() {
+	auto wtf = std::thread(&WindowWatcherImpl::active_window_thread, impl.get(), std::ref(messages));
+	wtf.join();
+}
