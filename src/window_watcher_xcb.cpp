@@ -1,14 +1,11 @@
 #include "window_watcher.hpp"
 #include "private_xcb.hpp"
-#include <xcb/xcb.h>
-#include <memory>
-#include <stdexcept>
 
 // static member storage
-xcb_atom_t XCB_atoms::NET_ACTIVE_WINDOW;
-xcb_atom_t XCB_atoms::NET_WM_NAME;
-xcb_atom_t XCB_atoms::UTF8_STRING;
-xcb_atom_t XCB_atoms::NET_WM_PID;
+xcb_atom_t XCB::NET_ACTIVE_WINDOW;
+xcb_atom_t XCB::NET_WM_NAME;
+xcb_atom_t XCB::UTF8_STRING;
+xcb_atom_t XCB::NET_WM_PID;
 
 struct WindowWatcherImpl {
 	std::unique_ptr<xcb_connection_t, decltype(&xcb_disconnect)> conn;
@@ -42,26 +39,13 @@ struct WindowWatcherImpl {
 		for (event.reset(xcb_wait_for_event(conn.get())); event; event.reset(xcb_wait_for_event(conn.get()))) {
 			if (event->response_type == XCB_PROPERTY_NOTIFY) {
 				xcb_property_notify_event_t * pne = reinterpret_cast<xcb_property_notify_event_t*>(event.get());
-				if (pne->atom == XCB_atoms::NET_ACTIVE_WINDOW) {
+				if (pne->atom == XCB::NET_ACTIVE_WINDOW) {
 					// push them to the queue
-					/* FIXME this is copy-paste, TODO create a template method "get property and cast to value" from that */
-					xcb_generic_error_t *err = nullptr;
-					xcb_get_property_cookie_t aw_cookie = xcb_get_property(
-						conn.get(), 0, screen->root, XCB_atoms::NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW,
-						0, 1 /* xcb_window_t is <= uint32_t, trust libxcb-ewmh */
+					xcb_window_t new_window = XCB::get_property<xcb_window_t>(
+						conn.get(), screen->root, XCB::NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW
 					);
-					std::unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> aw_reply {
-						xcb_get_property_reply(conn.get(), aw_cookie, &err),
-						&free
-					};
-					if (!aw_reply) {
-						if (err) {
-							free(err);
-							throw std::runtime_error("xcb_get_property returned error");
-						} else throw std::runtime_error("xcb_get_property returned nullptr and no error");
-					}
-					xcb_window_t new_window = *reinterpret_cast<xcb_window_t*>(xcb_get_property_value(aw_reply.get()));
-					q.push({WindowEvent::Type::new_active, ForeignWindowImpl{conn.get(), new_window}});
+					if (new_window) // XXX: why whould it be 0?!
+						q.push({WindowEvent::Type::new_active, ForeignWindowImpl{conn.get(), new_window}});
 				}
 			}
 		}
@@ -79,10 +63,10 @@ struct WindowWatcherImpl {
 WindowWatcher::WindowWatcher() :impl(new WindowWatcherImpl) {
 	impl->conn.reset(xcb_connect(nullptr, nullptr));
 	if (!impl->conn) throw std::runtime_error("xcb_connect returned error");
-	XCB_atoms::NET_WM_NAME = impl->get_atom("_NET_WM_NAME");
-	XCB_atoms::NET_ACTIVE_WINDOW = impl->get_atom("_NET_ACTIVE_WINDOW");
-	XCB_atoms::UTF8_STRING = impl->get_atom("UTF8_STRING");
-	XCB_atoms::NET_WM_PID = impl->get_atom("_NET_WM_PID");
+	XCB::NET_WM_NAME = impl->get_atom("_NET_WM_NAME");
+	XCB::NET_ACTIVE_WINDOW = impl->get_atom("_NET_ACTIVE_WINDOW");
+	XCB::UTF8_STRING = impl->get_atom("UTF8_STRING");
+	XCB::NET_WM_PID = impl->get_atom("_NET_WM_PID");
 }
 
 WindowWatcher::~WindowWatcher() = default;

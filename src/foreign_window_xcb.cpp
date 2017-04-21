@@ -15,47 +15,13 @@ ForeignWindowImpl::ForeignWindowImpl(xcb_connection_t* conn_, xcb_window_t wid_)
 ForeignWindow::ForeignWindow(ForeignWindow && fw) :impl(std::move(fw.impl)) {}
 
 ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImpl(impl_)) {
-	using std::unique_ptr;
-	using std::runtime_error;
-
-	xcb_generic_error_t *err = nullptr; // can't use unique_ptr here because get_property_reply overwrites pointer value
-
-	xcb_get_property_cookie_t pid_cookie = xcb_get_property(
-		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_PID, XCB_ATOM_CARDINAL,
-		0, sizeof(uint32_t)/sizeof(uint32_t) // judging by libxcb-ewmh headers, CARDINAL == uint32_t
-	);
-	unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> pid_reply {xcb_get_property_reply(impl->conn, pid_cookie, &err),&free};
-	if (!pid_reply) {
-		if (err) {
-			free(err);
-			throw runtime_error("xcb_get_property returned error");
-		} else throw runtime_error("xcb_get_property returned nullptr and no error");
-	}
-	impl->pid = *reinterpret_cast<uint32_t*>(xcb_get_property_value(pid_reply.get())); // now store the uint32_t in a pid_t
+	// according to libxcb-ewmh headers, CARDINAL == uint32_t
+	impl->pid = XCB::get_property<uint32_t>(impl->conn, impl->wid, XCB::NET_WM_PID, XCB_ATOM_CARDINAL);
+	// now store the uint32_t in a pid_t
 }
 
 std::string ForeignWindow::get_window_title() {
-	using std::unique_ptr;
-	using std::runtime_error;
-
-	xcb_generic_error_t *err = nullptr; // can't use unique_ptr here because get_property_reply overwrites pointer value
-
-	xcb_get_property_cookie_t title_cookie = xcb_get_property(
-		impl->conn, 0, impl->wid, XCB_atoms::NET_WM_NAME, XCB_atoms::UTF8_STRING,
-		0, title_path_length/sizeof(uint32_t) /* FIXME: what happens if I pass 0? */
-	);
-
-	unique_ptr<xcb_get_property_reply_t,decltype(&free)> title_reply {xcb_get_property_reply(impl->conn, title_cookie, &err),&free};
-	if (!title_reply) {
-		if (err) {
-			free(err);
-			throw runtime_error("xcb_get_property returned error");
-		} else throw runtime_error("xcb_get_property returned nullptr and no error");
-	}
-
-	// FIXME: is it always \0-terminated?
-	// XXX: property_value shouldn't be freed even if it's a string: it's part of the title_reply memory block
-	return std::string(reinterpret_cast<char*>(xcb_get_property_value(title_reply.get())));
+	return XCB::get_property(impl->conn, impl->wid, XCB::NET_WM_NAME, XCB::UTF8_STRING, title_path_length);
 }
 
 static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl calls on *BSD and proc_pidpath on macOS
