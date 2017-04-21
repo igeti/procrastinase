@@ -15,6 +15,7 @@ struct XCB { // WindowWatcher should fill this while being constructed
 	static xcb_atom_t UTF8_STRING;
 	static xcb_atom_t NET_WM_PID;
 
+	// FIXME: this should probably be a ForeignWindow method
 	template<typename ret>
 	static ret get_property(xcb_connection_t* conn, xcb_window_t wid, xcb_atom_t atom, xcb_atom_t type, size_t len = sizeof(ret)) {
 		return *reinterpret_cast<ret*>(

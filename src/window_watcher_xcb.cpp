@@ -30,6 +30,7 @@ struct WindowWatcherImpl {
 		const uint32_t select_input_val[] = { XCB_EVENT_MASK_PROPERTY_CHANGE };
 		// "open" root window and set event mask
 		xcb_void_cookie_t root_cookie = xcb_change_window_attributes_checked(conn.get(), screen->root, XCB_CW_EVENT_MASK, select_input_val);
+		// TODO: create a ForeignWindow for root window and use its methods to get attribute values
 		xcb_generic_error_t *error = xcb_request_check(conn.get(), root_cookie);
 		if (error != nullptr) {
 			throw std::runtime_error("Couldn't open root window"); // FIXME: this is impossible to catch from main thread
