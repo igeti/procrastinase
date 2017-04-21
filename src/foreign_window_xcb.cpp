@@ -10,6 +10,8 @@
 
 const size_t title_path_length = 4096; // VFS has troubles coping with >256-character paths, anyway
 
+ForeignWindowImpl::ForeignWindowImpl(xcb_connection_t* conn_, xcb_window_t wid_) :conn(conn_), wid(wid_) {}
+
 ForeignWindow::ForeignWindow(ForeignWindow && fw) :impl(std::move(fw.impl)) {}
 
 ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImpl(impl_)) {
