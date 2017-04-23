@@ -2,41 +2,40 @@
 #include <memory>
 #include <stdexcept>
 
-struct ForeignWindowImpl {
-	xcb_connection_t* conn;
-	xcb_window_t wid;
-	pid_t pid;
-	ForeignWindowImpl(xcb_connection_t*, xcb_window_t);
-};
-
 struct XCB { // WindowWatcher should fill this while being constructed
 	static xcb_atom_t NET_ACTIVE_WINDOW;
 	static xcb_atom_t NET_WM_NAME;
 	static xcb_atom_t UTF8_STRING;
 	static xcb_atom_t NET_WM_PID;
+};
 
-	// FIXME: this should probably be a ForeignWindow method
-	template<typename ret>
-	static ret get_property(xcb_connection_t* conn, xcb_window_t wid, xcb_atom_t atom, xcb_atom_t type, size_t len = sizeof(ret)) {
-		return *reinterpret_cast<ret*>(
+struct ForeignWindowImpl {
+	xcb_connection_t* conn;
+	xcb_window_t wid;
+	pid_t pid;
+	ForeignWindowImpl(xcb_connection_t*, xcb_window_t);
+
+	template<typename T>
+	T get_property(xcb_atom_t atom, xcb_atom_t type, size_t len = sizeof(T)) {
+		return *reinterpret_cast<T*>(
 			xcb_get_property_value(
-				get_property_reply(conn, wid, atom, type, len).get()
+				get_property_reply(atom, type, len).get()
 			)
 		);
 	}
 
-	static std::string get_property(xcb_connection_t* conn, xcb_window_t wid, xcb_atom_t atom, xcb_atom_t type, size_t len) {
+	std::string get_property(xcb_atom_t atom, size_t len) {
 		return std::string(
 			reinterpret_cast<char*>(
-					xcb_get_property_value(
-						get_property_reply(conn, wid, atom, type, len).get()
-					)
+				xcb_get_property_value(
+					get_property_reply(atom, XCB::UTF8_STRING, len).get()
+				)
 			)
 		);
 	}
 private:
-	static std::unique_ptr<xcb_get_property_reply_t,decltype(&std::free)>
-	get_property_reply(xcb_connection_t* conn, xcb_window_t wid, xcb_atom_t atom, xcb_atom_t type, size_t len) {
+	std::unique_ptr<xcb_get_property_reply_t,decltype(&std::free)>
+	get_property_reply(xcb_atom_t atom, xcb_atom_t type, size_t len) {
 		using std::unique_ptr;
 		using std::runtime_error;
 		xcb_generic_error_t *err = nullptr; // can't use unique_ptr here because get_property_reply overwrites pointer value

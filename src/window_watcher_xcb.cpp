@@ -30,7 +30,7 @@ struct WindowWatcherImpl {
 		const uint32_t select_input_val[] = { XCB_EVENT_MASK_PROPERTY_CHANGE };
 		// "open" root window and set event mask
 		xcb_void_cookie_t root_cookie = xcb_change_window_attributes_checked(conn.get(), screen->root, XCB_CW_EVENT_MASK, select_input_val);
-		// TODO: create a ForeignWindow for root window and use its methods to get attribute values
+		ForeignWindow root({conn.get(), screen->root});
 		xcb_generic_error_t *error = xcb_request_check(conn.get(), root_cookie);
 		if (error != nullptr) {
 			throw std::runtime_error("Couldn't open root window"); // FIXME: this is impossible to catch from main thread
@@ -42,17 +42,17 @@ struct WindowWatcherImpl {
 				xcb_property_notify_event_t * pne = reinterpret_cast<xcb_property_notify_event_t*>(event.get());
 				if (pne->atom == XCB::NET_ACTIVE_WINDOW) {
 					// push them to the queue
-					xcb_window_t new_window = XCB::get_property<xcb_window_t>(
-						conn.get(), screen->root, XCB::NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW
+					xcb_window_t new_window = root.impl->get_property<xcb_window_t>(
+						XCB::NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW
 					);
-					if (new_window) // XXX: why whould it be 0?!
+					if (new_window) // FIXME: separate message for "no active window"
 						q.push({WindowEvent::Type::new_active, ForeignWindowImpl{conn.get(), new_window}});
 				}
 			}
 		}
 	}
 	void window_title_thread(thr_queue<WindowEvent> & q, const ForeignWindow & w) {
-		// FIXME: how to cancel this thread safely?
+		// to cancel this thread safely, I need a flag to check on every message and return if not needed anymore
 		// FIXME: it seems that I'll need to create them for each active window
 		// open the window
 		// set event mask to PropertyNotify, atom _NET_WM_NAME
