@@ -26,7 +26,7 @@ std::string ForeignWindow::get_window_title() {
 
 static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl calls on *BSD and proc_pidpath on macOS
 	std::string link {"/proc/"};
-	link += pid;
+	link += std::to_string(pid);
 	link += "/exe";
 	std::unique_ptr<char,decltype(&std::free)> path{realpath(link.c_str(),nullptr),&std::free};
 	if (!path) throw std::runtime_error("realpath returned error");
