@@ -25,12 +25,14 @@ struct ForeignWindowImpl {
 	}
 
 	std::string get_property(xcb_atom_t atom, size_t len) {
+		auto reply = get_property_reply(atom, XCB::UTF8_STRING, len);
 		return std::string(
 			reinterpret_cast<char*>(
 				xcb_get_property_value(
-					get_property_reply(atom, XCB::UTF8_STRING, len).get()
+					reply.get()
 				)
-			)
+			),
+			(size_t)xcb_get_property_value_length(reply.get()) // WHY should it have been int?
 		);
 	}
 private:
