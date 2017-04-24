@@ -11,8 +11,8 @@ friend struct WindowWatcherImpl;
 public:
 	ForeignWindow(ForeignWindow && fw);
 	void kill();
-	std::string get_window_title();
-	std::string get_program_path();
+	std::string get_window_title() const;
+	std::string get_program_path() const;
 	~ForeignWindow();
 private:
 	std::unique_ptr<ForeignWindowImpl> impl;

@@ -20,7 +20,7 @@ ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImp
 	// now store the uint32_t in a pid_t
 }
 
-std::string ForeignWindow::get_window_title() {
+std::string ForeignWindow::get_window_title() const {
 	return impl->get_property(XCB::NET_WM_NAME, title_path_length);
 }
 
@@ -33,7 +33,7 @@ static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl
 	return std::string(path.get());
 }
 
-std::string ForeignWindow::get_program_path() {
+std::string ForeignWindow::get_program_path() const {
 	return executable_path(impl->pid);
 }
 
