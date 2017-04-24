@@ -11,18 +11,18 @@ public:
 	virtual ~ProgramList();
 };
 
-class ProgramPathSet {
+class ProgramPathSet : public ProgramList {
 public:
 	ProgramPathSet(const std::set<std::string>&);
-	bool satisfies(const ForeignWindow&);
+	bool satisfies(const ForeignWindow&) override;
 private:
 	std::set<std::string> paths;
 };
 
-class WindowTitleSubstringList {
+class WindowTitleSubstringList : public ProgramList {
 public:
 	WindowTitleSubstringList(const std::list<std::string>&);
-	bool satisfies(const ForeignWindow&);
+	bool satisfies(const ForeignWindow&) override;
 private:
 	std::list<std::string> title_substrings;
 };
