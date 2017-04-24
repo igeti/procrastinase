@@ -16,7 +16,7 @@ ForeignWindow::ForeignWindow(ForeignWindow && fw) :impl(std::move(fw.impl)) {}
 
 ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImpl(impl_)) {
 	// according to libxcb-ewmh headers, CARDINAL == uint32_t
-	impl->pid = impl->get_property<uint32_t>(XCB::NET_WM_PID, XCB_ATOM_CARDINAL);
+	impl->pid = impl->get_property<uint32_t>(XCB::NET_WM_PID, XCB_ATOM_CARDINAL); // FIXME: for windows without _NET_WM_PID, garbage is returned
 	// now store the uint32_t in a pid_t
 }
 
@@ -34,12 +34,25 @@ static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl
 }
 
 std::string ForeignWindow::get_program_path() const {
-	return executable_path(impl->pid);
+	if (impl->pid)
+		return executable_path(impl->pid);
+	else
+		return impl->get_property(XCB_ATOM_WM_CLASS,title_path_length);
 }
 
 void ForeignWindow::kill() {
-	if (::kill(impl->pid,SIGTERM))
-		throw std::runtime_error("kill returned error");
+	if (impl->pid) { // kill process
+		if (::kill(impl->pid,SIGTERM))
+			throw std::runtime_error("kill returned error");
+		return;
+	} else { // kill window
+		xcb_void_cookie_t kill_cookie = xcb_kill_client_checked(impl->conn, impl->wid);
+		xcb_generic_error_t * error = xcb_request_check(impl->conn, kill_cookie);
+		if (error) {
+			free(error); // FIXME: XCB doesn't clearly specify if I should
+			throw std::runtime_error("xcb_kill_client returned error");
+		}
+	}
 }
 
 // work around unique_ptr asking for destructor while compiling public headers

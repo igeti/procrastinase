@@ -52,7 +52,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_THREAD_LIBS_INIT}")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_THREAD_LIBS_INIT}")
 
 # add portable source files here
-set(PROCRASTINASE_SOURCES "src/window_watcher.cpp")
+set(PROCRASTINASE_SOURCES "src/window_watcher.cpp" "src/statistics.cpp")
 
 # finally, produce the executable
 add_executable(skeleton "src/skeleton.cpp" ${PROCRASTINASE_SOURCES})
