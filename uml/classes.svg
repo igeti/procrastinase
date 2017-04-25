@@ -312,4 +312,36 @@
     <rect style="fill: #ffffff" x="-555.33" y="-22.7726" width="217.9" height="8"/>
     <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-555.33" y="-22.7726" width="217.9" height="8"/>
   </g>
+  <g>
+    <polygon style="fill: #ffffff" points="347.816,70.1924 407.716,70.1924 419.716,82.1924 419.716,104.192 347.816,104.192 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="347.816,70.1924 407.716,70.1924 419.716,82.1924 419.716,104.192 347.816,104.192 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="407.716,70.1924 407.716,82.1924 419.716,82.1924 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="354.816" y="95.0924">
+      <tspan x="354.816" y="95.0924">Builder</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="343.566,365.192 395.766,365.192 407.766,377.192 407.766,399.192 343.566,399.192 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="343.566,365.192 395.766,365.192 407.766,377.192 407.766,399.192 343.566,399.192 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="395.766,365.192 395.766,377.192 407.766,377.192 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="350.566" y="390.092">
+      <tspan x="350.566" y="390.092">Bridge</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="407.566,581.19 467.466,581.19 479.466,593.19 479.466,615.19 407.566,615.19 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="407.566,581.19 467.466,581.19 479.466,593.19 479.466,615.19 407.566,615.19 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="467.466,581.19 467.466,593.19 479.466,593.19 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="414.566" y="606.09">
+      <tspan x="414.566" y="606.09">Wrapper</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="682.87,424.994 742.77,424.994 754.77,436.994 754.77,458.994 682.87,458.994 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="682.87,424.994 742.77,424.994 754.77,436.994 754.77,458.994 682.87,458.994 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="742.77,424.994 742.77,436.994 754.77,436.994 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="689.87" y="449.894">
+      <tspan x="689.87" y="449.894">Wrapper</tspan>
+    </text>
+  </g>
 </svg>
