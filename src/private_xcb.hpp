@@ -24,8 +24,8 @@ struct ForeignWindowImpl {
 		);
 	}
 
-	std::string get_property(xcb_atom_t atom, size_t len) {
-		auto reply = get_property_reply(atom, XCB::UTF8_STRING, len);
+	std::string get_property(xcb_atom_t atom, size_t len, xcb_atom_t type = XCB::UTF8_STRING) {
+		auto reply = get_property_reply(atom, type, len);
 		return std::string(
 			reinterpret_cast<char*>(
 				xcb_get_property_value(

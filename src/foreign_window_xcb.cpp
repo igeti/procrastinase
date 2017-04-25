@@ -1,12 +1,12 @@
 #define _POSIX_C_SOURCE 200809L // readlink
 #include "foreign_window.hpp"
 #include "private_xcb.hpp"
-#include <stdexcept>
-#include <memory>
+#include <stdexcept> // runtime_error
+#include <memory> // unique_ptr
 #include <sys/types.h> // pid_t
-#include <cmath> // ceil
 #include <stdlib.h> // realpath
 #include <signal.h> // kill
+#include <algorithm> // find
 
 const size_t title_path_length = 4096; // VFS has troubles coping with >256-character paths, anyway
 
@@ -34,10 +34,16 @@ static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl
 }
 
 std::string ForeignWindow::get_program_path() const {
-	if (impl->pid)
-		return executable_path(impl->pid);
-	else
-		return impl->get_property(XCB_ATOM_WM_CLASS,title_path_length);
+	try {
+		if (impl->pid)
+			return executable_path(impl->pid);
+	} catch (std::runtime_error &) {} // garbage PID or paranoid kernel
+
+	// get the full WM_CLASS value
+	std::string wm_class = impl->get_property(XCB_ATOM_WM_CLASS,title_path_length,XCB_ATOM_STRING);
+	// cut the "instance class" (before \0) and leave the "app class" (after first \0)
+	wm_class.erase(wm_class.begin(), std::find(wm_class.begin(), wm_class.end(), '\0'));
+	return wm_class;
 }
 
 void ForeignWindow::kill() {
