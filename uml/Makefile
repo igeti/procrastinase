@@ -1,5 +1,5 @@
 %.png: %.dia
-	dia -e $@ -s 1300x $<
+	dia -e $@ -s 4000x $<
 
 %.svg: %.dia
 	dia -e $@ $<
