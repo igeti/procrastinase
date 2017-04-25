@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
-<svg width="90cm" height="44cm" viewBox="-557 -154 1788 874" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="90cm" height="45cm" viewBox="-557 -154 1788 888" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <g>
     <rect style="fill: #ffffff" x="193.53" y="381.288" width="194.8" height="44"/>
     <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="193.53" y="381.288" width="194.8" height="44"/>
@@ -248,48 +248,48 @@
     <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-132.931" y="118.057">1</text>
   </g>
   <g>
-    <rect style="fill: #ffffff" x="103.323" y="586.844" width="364.2" height="44"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="103.323" y="586.844" width="364.2" height="44"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="285.423" y="602.844">&lt;&lt;XCB&gt;&gt;</text>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="285.423" y="621.844">ForeignWindowImpl</text>
-    <rect style="fill: #ffffff" x="103.323" y="630.844" width="364.2" height="52"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="103.323" y="630.844" width="364.2" height="52"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="106.323" y="644.844">+conn: xcb_connection_t*</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="106.323" y="660.844">+wid: xcb_window_t</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="106.323" y="676.844">+pid: pid_t</text>
-    <rect style="fill: #ffffff" x="103.323" y="682.844" width="364.2" height="36"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="103.323" y="682.844" width="364.2" height="36"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="106.323" y="696.844">+get_property(type:xcb_atom_t,atom:xcb_atom_t,</text>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="106.323" y="712.844">              len:size_t=sizeof(T)): T</text>
+    <rect style="fill: #ffffff" x="-89.0092" y="600.986" width="364.2" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-89.0092" y="600.986" width="364.2" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="93.0908" y="616.986">&lt;&lt;XCB&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="93.0908" y="635.986">ForeignWindowImpl</text>
+    <rect style="fill: #ffffff" x="-89.0092" y="644.986" width="364.2" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-89.0092" y="644.986" width="364.2" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-86.0092" y="658.986">+conn: xcb_connection_t*</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-86.0092" y="674.986">+wid: xcb_window_t</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-86.0092" y="690.986">+pid: pid_t</text>
+    <rect style="fill: #ffffff" x="-89.0092" y="696.986" width="364.2" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="-89.0092" y="696.986" width="364.2" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-86.0092" y="710.986">+get_property(type:xcb_atom_t,atom:xcb_atom_t,</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-86.0092" y="726.986">              len:size_t=sizeof(T)): T</text>
   </g>
   <g>
-    <rect style="fill: #ffffff" x="534.204" y="445.144" width="189.75" height="44"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="534.204" y="445.144" width="189.75" height="44"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="629.079" y="461.144">&lt;&lt;Win32&gt;&gt;</text>
-    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="629.079" y="480.144">ForeignWindowImpl</text>
-    <rect style="fill: #ffffff" x="534.204" y="489.144" width="189.75" height="20"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="534.204" y="489.144" width="189.75" height="20"/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="537.204" y="503.144">+wnd: HWND</text>
-    <rect style="fill: #ffffff" x="534.204" y="509.144" width="189.75" height="8"/>
-    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="534.204" y="509.144" width="189.75" height="8"/>
+    <rect style="fill: #ffffff" x="419.652" y="604.95" width="189.75" height="44"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="419.652" y="604.95" width="189.75" height="44"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="514.527" y="620.95">&lt;&lt;Win32&gt;&gt;</text>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="514.527" y="639.95">ForeignWindowImpl</text>
+    <rect style="fill: #ffffff" x="419.652" y="648.95" width="189.75" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="419.652" y="648.95" width="189.75" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="422.652" y="662.95">+wnd: HWND</text>
+    <rect style="fill: #ffffff" x="419.652" y="668.95" width="189.75" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="419.652" y="668.95" width="189.75" height="8"/>
   </g>
   <g>
-    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="290.93,523.467 290.93,549.066 285.423,549.066 285.423,585.836 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="290.93,523.467 290.93,556.137 93.0908,556.137 93.0908,599.978 "/>
     <polygon style="fill: #ffffff" points="290.93,498.295 295.73,512.295 290.93,526.295 286.13,512.295 "/>
     <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="290.93,498.295 295.73,512.295 290.93,526.295 286.13,512.295 "/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="288.177" y="546.066"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="192.011" y="553.137"/>
     <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="301.93" y="510.295"/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="289.423" y="565.836"> impl</text>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="289.423" y="581.836">1</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="97.0908" y="579.978"> impl</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="97.0908" y="595.978">1</text>
   </g>
   <g>
-    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="414.508,439.288 468.267,439.288 468.267,481.144 533.198,481.144 "/>
-    <polygon style="fill: #ffffff" points="389.336,439.288 403.336,434.488 417.336,439.288 403.336,444.088 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="389.336,439.288 403.336,434.488 417.336,439.288 403.336,444.088 "/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="470.267" y="457.216"/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="421.336" y="436.288"/>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="529.198" y="478.144"> impl</text>
-    <text font-size="12.7998" style="fill: #000000;text-anchor:end;font-family:monospace;font-style:normal;font-weight:normal" x="529.198" y="494.144">1</text>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="290.93,523.467 290.93,558.118 514.527,558.118 514.527,603.941 "/>
+    <polygon style="fill: #ffffff" points="290.93,498.295 295.73,512.295 290.93,526.295 286.13,512.295 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="290.93,498.295 295.73,512.295 290.93,526.295 286.13,512.295 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="402.729" y="555.118"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="301.93" y="510.295"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.527" y="583.941"> impl</text>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="518.527" y="599.941">1</text>
   </g>
   <g>
     <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-266.17,-78.5782 -295.711,-78.5782 -295.711,-58.7726 -336.423,-58.7726 "/>
@@ -329,19 +329,19 @@
     </text>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="407.566,581.19 467.466,581.19 479.466,593.19 479.466,615.19 407.566,615.19 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="407.566,581.19 467.466,581.19 479.466,593.19 479.466,615.19 407.566,615.19 "/>
-    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="467.466,581.19 467.466,593.19 479.466,593.19 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="414.566" y="606.09">
-      <tspan x="414.566" y="606.09">Wrapper</tspan>
+    <polygon style="fill: #ffffff" points="-102.964,585.434 -43.0636,585.434 -31.0636,597.434 -31.0636,619.434 -102.964,619.434 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-102.964,585.434 -43.0636,585.434 -31.0636,597.434 -31.0636,619.434 -102.964,619.434 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="-43.0636,585.434 -43.0636,597.434 -31.0636,597.434 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-95.9636" y="610.334">
+      <tspan x="-95.9636" y="610.334">Wrapper</tspan>
     </text>
   </g>
   <g>
-    <polygon style="fill: #ffffff" points="682.87,424.994 742.77,424.994 754.77,436.994 754.77,458.994 682.87,458.994 "/>
-    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="682.87,424.994 742.77,424.994 754.77,436.994 754.77,458.994 682.87,458.994 "/>
-    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="742.77,424.994 742.77,436.994 754.77,436.994 "/>
-    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="689.87" y="449.894">
-      <tspan x="689.87" y="449.894">Wrapper</tspan>
+    <polygon style="fill: #ffffff" points="579.634,583.386 639.534,583.386 651.534,595.386 651.534,617.386 579.634,617.386 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="579.634,583.386 639.534,583.386 651.534,595.386 651.534,617.386 579.634,617.386 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="639.534,583.386 639.534,595.386 651.534,595.386 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="586.634" y="608.286">
+      <tspan x="586.634" y="608.286">Wrapper</tspan>
     </text>
   </g>
   <g>
@@ -350,6 +350,22 @@
     <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="-89.7366,208.43 -89.7366,220.43 -77.7366,220.43 "/>
     <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-142.637" y="233.33">
       <tspan x="-142.637" y="233.33">Builder</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="-69.0368,146.337 -1.4368,146.337 10.5632,158.337 10.5632,180.337 -69.0368,180.337 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="-69.0368,146.337 -1.4368,146.337 10.5632,158.337 10.5632,180.337 -69.0368,180.337 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="-1.4368,146.337 -1.4368,158.337 10.5632,158.337 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="-62.0368" y="171.237">
+      <tspan x="-62.0368" y="171.237">Strategy</tspan>
+    </text>
+  </g>
+  <g>
+    <polygon style="fill: #ffffff" points="280.284,539.356 347.884,539.356 359.884,551.356 359.884,573.356 280.284,573.356 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="280.284,539.356 347.884,539.356 359.884,551.356 359.884,573.356 280.284,573.356 "/>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 1; stroke: #000000" points="347.884,539.356 347.884,551.356 359.884,551.356 "/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="287.284" y="564.256">
+      <tspan x="287.284" y="564.256">Strategy</tspan>
     </text>
   </g>
 </svg>
