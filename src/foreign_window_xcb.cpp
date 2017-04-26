@@ -53,11 +53,10 @@ void ForeignWindow::kill() {
 		return;
 	} else { // kill window
 		xcb_void_cookie_t kill_cookie = xcb_kill_client_checked(impl->conn, impl->wid);
-		xcb_generic_error_t * error = xcb_request_check(impl->conn, kill_cookie);
-		if (error) {
-			free(error); // FIXME: XCB doesn't clearly specify if I should
+		std::unique_ptr<xcb_generic_error_t,decltype(&free)> error {xcb_request_check(impl->conn, kill_cookie),&free};
+		// man xcb-requests says I should free result of xcb_request_check
+		if (error)
 			throw std::runtime_error("xcb_kill_client returned error");
-		}
 	}
 }
 

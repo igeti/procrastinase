@@ -20,7 +20,7 @@ struct WindowWatcherImpl {
 		atom_cookie = xcb_intern_atom(conn.get(), 0, atom_name.length(), atom_name.c_str());
 		atom_reply.reset(xcb_intern_atom_reply(conn.get(), atom_cookie, &err));
 		if (!atom_reply) {
-			if (err) free(err);
+			free(err);
 			throw std::runtime_error("xcb_intern_atom returned error");
 		}
 		return atom_reply->atom;
@@ -31,11 +31,9 @@ struct WindowWatcherImpl {
 	void set_window_events(xcb_window_t wid, uint32_t value) {
 		const uint32_t select_input_val[] = { value };
 		xcb_void_cookie_t event_cookie = xcb_change_window_attributes_checked(conn.get(), wid, XCB_CW_EVENT_MASK, select_input_val);
-		xcb_generic_error_t *error = xcb_request_check(conn.get(), event_cookie);
-		if (error != nullptr) {
-			free(error); // FIXME: XCB doesn't tell me if I should
+		std::unique_ptr<xcb_generic_error_t,decltype(&free)> error {xcb_request_check(conn.get(), event_cookie),&free};
+		if (error)
 			throw std::runtime_error("Couldn't change window event mask");
-		}
 	}
 
 	void watch_window_title(const ForeignWindow & wnd) {

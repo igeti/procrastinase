@@ -53,10 +53,8 @@ private:
 		);
 		unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> reply {xcb_get_property_reply(conn, cookie, &err),&free};
 		if (!reply) {
-			if (err) {
-				free(err);
-				throw runtime_error("xcb_get_property returned error");
-			} else throw runtime_error("xcb_get_property returned nullptr and no error");
+			free(err);
+			throw runtime_error("xcb_get_property returned error");
 		}
 		return reply;
 	}
