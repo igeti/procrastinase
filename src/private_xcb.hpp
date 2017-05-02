@@ -52,10 +52,15 @@ private:
 			conn, 0, wid, atom, type, 0, ret_size
 		);
 		unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> reply {xcb_get_property_reply(conn, cookie, &err),&free};
+
 		if (!reply) {
 			free(err);
 			throw runtime_error("xcb_get_property returned error");
 		}
+
+		if (len && !xcb_get_property_value_length(reply.get()))
+			throw runtime_error("xcb_get_property returned empty reply when requested size != 0");
+
 		return reply;
 	}
 };

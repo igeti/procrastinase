@@ -15,16 +15,22 @@ ForeignWindowImpl::ForeignWindowImpl(xcb_connection_t* conn_, xcb_window_t wid_)
 ForeignWindow::ForeignWindow(ForeignWindow && fw) :impl(std::move(fw.impl)) {}
 
 ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImpl(impl_)) {
-	// according to libxcb-ewmh headers, CARDINAL == uint32_t
-	impl->pid = impl->get_property<uint32_t>(XCB::NET_WM_PID, XCB_ATOM_CARDINAL); // FIXME: for windows without _NET_WM_PID, garbage is returned
-	// now store the uint32_t in a pid_t
+	try {
+		// according to libxcb-ewmh headers, CARDINAL == uint32_t
+		impl->pid = impl->get_property<uint32_t>(XCB::NET_WM_PID, XCB_ATOM_CARDINAL);
+		// now store the uint32_t in a pid_t
+	} catch (std::runtime_error & err) {
+		// some windows (e.g. Worker) just don't have _NET_WM_PID set
+		// also, this could be a remote window, if the user had enough reasons to use them
+		impl->pid = 0;
+	}
 }
 
 std::string ForeignWindow::get_window_title() const {
 	return impl->get_property(XCB::NET_WM_NAME, title_path_length);
 }
 
-static std::string executable_path(pid_t pid) { // FIXME: Linux-only, see sysctl calls on *BSD and proc_pidpath on macOS
+static std::string executable_path(pid_t pid) { // XXX: this is Linux-only, see sysctl calls on *BSD and proc_pidpath on macOS
 	std::string link {"/proc/"};
 	link += std::to_string(pid);
 	link += "/exe";
@@ -37,7 +43,7 @@ std::string ForeignWindow::get_program_path() const {
 	try {
 		if (impl->pid)
 			return executable_path(impl->pid);
-	} catch (std::runtime_error &) {} // garbage PID or paranoid kernel
+	} catch (std::runtime_error &) {} // paranoid kernel doesn't let us peek at /proc? oh well
 
 	// get the full WM_CLASS value
 	std::string wm_class = impl->get_property(XCB_ATOM_WM_CLASS,title_path_length,XCB_ATOM_STRING);
