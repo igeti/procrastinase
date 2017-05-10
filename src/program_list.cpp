@@ -12,4 +12,5 @@ bool ProgramList::satisfies(const ForeignWindow & wnd) {
 	return false;
 }
 
-
+std::set<std::string> ProgramList::get_paths() { return paths; }
+std::set<std::string> ProgramList::get_substrings() { return title_substrings; }
