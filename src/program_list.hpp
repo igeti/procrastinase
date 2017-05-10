@@ -6,6 +6,7 @@
 
 class ProgramList {
 public:
+	ProgramList();
 	ProgramList(const std::set<std::string> &, const std::set<std::string>&);
 	bool satisfies(const ForeignWindow&);
 	std::set<std::string> get_paths();

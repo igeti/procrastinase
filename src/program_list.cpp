@@ -1,5 +1,7 @@
 #include "program_list.hpp"
 
+ProgramList::ProgramList() {}
+
 ProgramList::ProgramList(const std::set<std::string> & paths_, const std::set<std::string> & substrings)
 	: paths(paths_), title_substrings(substrings) {}
 
