@@ -1,3 +1,4 @@
+#pragma once
 #include "foreign_window.hpp"
 #include "procrastinase.hpp"
 #include <string>

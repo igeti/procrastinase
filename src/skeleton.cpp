@@ -6,7 +6,7 @@ int main() {
 	Statistics stat;
 
 	WindowWatcher ww(stat);
-	ww.set_whitelist(whitelist);
+//	ww.set_whitelist(whitelist);
 
 	ww.run();
 	return 0;

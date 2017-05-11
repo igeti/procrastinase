@@ -1,8 +1,9 @@
+#pragma once
 #include "foreign_window.hpp"
 #include "queue.hpp"
 #include "timer.hpp"
 #include "statistics.hpp"
-#include <set> // FIXME: for now
+#include "program_list.hpp"
 
 struct WindowWatcherImpl;
 
@@ -26,16 +27,16 @@ class WindowWatcher {
 public:
 	WindowWatcher(Statistics &);
 	void run();
-	void handle_event(const WindowEvent &);
-	void set_whitelist(const std::set<std::string>&); // FIXME: for now
 	~WindowWatcher();
 private:
+	void handle_event(const WindowEvent &);
 	Statistics & stat;
 	std::chrono::steady_clock::time_point last_event;
 	std::string last_program, last_title;
 	ProgramRole last_state;
+	ProgramList whitelist, greylist, blacklist;
+	ProgramRole default_action;
 	// TODO: alarm sound object
-	std::set<std::string> whitelist; // FIXME: for now
 	thr_queue<WindowEvent> messages;
 	thr_timer tmr;
 	std::unique_ptr<WindowWatcherImpl> impl;

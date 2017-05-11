@@ -1,3 +1,4 @@
+#pragma once
 #include <xcb/xcb.h>
 #include <memory>
 #include <stdexcept>

@@ -1,9 +1,5 @@
 #include "window_watcher.hpp"
 
-void WindowWatcher::set_whitelist(const std::set<std::string> & wl) {
-	whitelist = wl;
-}
-
 // the business logic(TM) method
 void WindowWatcher::handle_event(const WindowEvent & ev) {
 	if (ev.type == WindowEvent::Type::new_active
