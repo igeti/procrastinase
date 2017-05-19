@@ -2,7 +2,7 @@
 
 ProgramList::ProgramList() {}
 
-ProgramList::ProgramList(const std::set<std::string> & paths_, const std::set<std::string> & substrings)
+ProgramList::ProgramList(const std::unordered_set<std::string> & paths_, const std::unordered_set<std::string> & substrings)
 	: paths(paths_), title_substrings(substrings) {}
 
 bool ProgramList::satisfies(const ForeignWindow & wnd) {
@@ -14,12 +14,12 @@ bool ProgramList::satisfies(const ForeignWindow & wnd) {
 	return false;
 }
 
-std::set<std::string> ProgramList::get_paths() {
+std::unordered_set<std::string> ProgramList::get_paths() {
 	std::lock_guard<std::mutex> lock(mutex);
 	return paths;
 }
 
-std::set<std::string> ProgramList::get_substrings() {
+std::unordered_set<std::string> ProgramList::get_substrings() {
 	std::lock_guard<std::mutex> lock(mutex);
 	return title_substrings;
 }
