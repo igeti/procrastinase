@@ -2,14 +2,14 @@
 #include <memory>
 #include <stdexcept>
 
-struct XCB { // WindowWatcher should fill this while being constructed
+struct XCB {
 	static xcb_atom_t NET_ACTIVE_WINDOW;
 	static xcb_atom_t NET_WM_NAME;
 	static xcb_atom_t UTF8_STRING;
 	static xcb_atom_t NET_WM_PID;
 };
 
-struct ForeignWindowImpl {
+struct ForeignWindowImpl : public XCB {
 	xcb_connection_t* conn;
 	xcb_window_t wid;
 	pid_t pid;
@@ -24,7 +24,7 @@ struct ForeignWindowImpl {
 		);
 	}
 
-	std::string get_property(xcb_atom_t atom, size_t len, xcb_atom_t type = XCB::UTF8_STRING) {
+	std::string get_property(xcb_atom_t atom, size_t len, xcb_atom_t type = UTF8_STRING) {
 		auto reply = get_property_reply(atom, type, len);
 		return std::string(
 			reinterpret_cast<char*>(

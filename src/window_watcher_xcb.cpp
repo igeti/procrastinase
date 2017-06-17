@@ -9,7 +9,7 @@ xcb_atom_t XCB::NET_WM_PID;
 
 const size_t title_length = 4096;
 
-struct WindowWatcherImpl {
+struct WindowWatcherImpl : public XCB {
 	std::unique_ptr<xcb_connection_t, decltype(&xcb_disconnect)> conn;
 
 	xcb_atom_t get_atom(std::string atom_name) {
@@ -57,18 +57,18 @@ struct WindowWatcherImpl {
 		for (event.reset(xcb_wait_for_event(conn.get())); event; event.reset(xcb_wait_for_event(conn.get()))) {
 			if (event->response_type == XCB_PROPERTY_NOTIFY) {
 				xcb_property_notify_event_t * pne = reinterpret_cast<xcb_property_notify_event_t*>(event.get());
-				if (pne->atom == XCB::NET_ACTIVE_WINDOW && pne->window == screen->root) {
+				if (pne->atom == NET_ACTIVE_WINDOW && pne->window == screen->root) {
 					// push them to the queue
 					xcb_window_t new_window = root.get_property<xcb_window_t>(
-						XCB::NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW
+						NET_ACTIVE_WINDOW, XCB_ATOM_WINDOW
 					);
 					if (new_window)
 						q.push({WindowEvent::Type::new_active, ForeignWindowImpl{conn.get(), new_window}});
 					else
 						q.push({WindowEvent::Type::no_active, ForeignWindowImpl{conn.get(), screen->root/*whatever*/}});
-				} else if (pne->atom == XCB::NET_WM_NAME && pne->window == currently_watched) {
+				} else if (pne->atom == NET_WM_NAME && pne->window == currently_watched) {
 					ForeignWindow w{{conn.get(),pne->window}};
-					q.push({w.impl->get_property(XCB::NET_WM_NAME,title_length),std::move(w)});
+					q.push({w.impl->get_property(NET_WM_NAME,title_length),std::move(w)});
 				}
 			}
 		}
@@ -78,19 +78,19 @@ struct WindowWatcherImpl {
 		return;
 	}
 
-	WindowWatcherImpl() :conn{nullptr,&xcb_disconnect}, currently_watched{0} /* 0 seems to be always invalid */ {}
+	WindowWatcherImpl() :conn{nullptr,&xcb_disconnect}, currently_watched{0} /* 0 seems to be always invalid */ {
+		conn.reset(xcb_connect(nullptr, nullptr));
+		if (!conn) throw std::runtime_error("xcb_connect returned error");
+		NET_WM_NAME = get_atom("_NET_WM_NAME");
+		NET_ACTIVE_WINDOW = get_atom("_NET_ACTIVE_WINDOW");
+		UTF8_STRING = get_atom("UTF8_STRING");
+		NET_WM_PID = get_atom("_NET_WM_PID");
+	}
 };
 
 WindowWatcher::WindowWatcher(Statistics & stat_)
 	: stat(stat_), last_event(std::chrono::steady_clock::now()),
-	last_state(ProgramRole::grey), impl(new WindowWatcherImpl) {
-	impl->conn.reset(xcb_connect(nullptr, nullptr));
-	if (!impl->conn) throw std::runtime_error("xcb_connect returned error");
-	XCB::NET_WM_NAME = impl->get_atom("_NET_WM_NAME");
-	XCB::NET_ACTIVE_WINDOW = impl->get_atom("_NET_ACTIVE_WINDOW");
-	XCB::UTF8_STRING = impl->get_atom("UTF8_STRING");
-	XCB::NET_WM_PID = impl->get_atom("_NET_WM_PID");
-}
+	last_state(ProgramRole::grey), impl(new WindowWatcherImpl) {}
 
 WindowWatcher::~WindowWatcher() = default;
 

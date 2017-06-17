@@ -17,7 +17,7 @@ ForeignWindow::ForeignWindow(ForeignWindow && fw) :impl(std::move(fw.impl)) {}
 ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImpl(impl_)) {
 	try {
 		// according to libxcb-ewmh headers, CARDINAL == uint32_t
-		impl->pid = impl->get_property<uint32_t>(XCB::NET_WM_PID, XCB_ATOM_CARDINAL);
+		impl->pid = impl->get_property<uint32_t>(impl->NET_WM_PID, XCB_ATOM_CARDINAL);
 		// now store the uint32_t in a pid_t
 	} catch (std::runtime_error & err) {
 		// some windows (e.g. Worker) just don't have _NET_WM_PID set
@@ -27,7 +27,7 @@ ForeignWindow::ForeignWindow(ForeignWindowImpl impl_) :impl(new ForeignWindowImp
 }
 
 std::string ForeignWindow::get_window_title() const {
-	return impl->get_property(XCB::NET_WM_NAME, title_path_length);
+	return impl->get_property(impl->NET_WM_NAME, title_path_length);
 }
 
 static std::string executable_path(pid_t pid) { // XXX: this is Linux-only, see sysctl calls on *BSD and proc_pidpath on macOS
