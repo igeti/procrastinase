@@ -44,8 +44,8 @@ std::string ForeignWindow::get_program_path() const {
 		if (impl->pid)
 			return executable_path(impl->pid);
 	} catch (std::runtime_error &) {} // paranoid kernel doesn't let us peek at /proc? oh well
-
-	// get the full WM_CLASS value
+	// anyway, if we've got here, we can't know the PID of the window owner
+	// get the full WM_CLASS value instead
 	std::string wm_class = impl->get_property(XCB_ATOM_WM_CLASS,title_path_length,XCB_ATOM_STRING);
 	// cut the "instance class" (before \0) and leave the "app class" (after first \0)
 	wm_class.erase(wm_class.begin(), std::find(wm_class.begin(), wm_class.end(), '\0'));
@@ -53,17 +53,15 @@ std::string ForeignWindow::get_program_path() const {
 }
 
 void ForeignWindow::kill() {
-	if (impl->pid) { // kill process
-		if (::kill(impl->pid,SIGTERM))
-			throw std::runtime_error("kill returned error");
-		return;
-	} else { // kill window
-		xcb_void_cookie_t kill_cookie = xcb_kill_client_checked(impl->conn, impl->wid);
-		std::unique_ptr<xcb_generic_error_t,decltype(&free)> error {xcb_request_check(impl->conn, kill_cookie),&free};
-		// man xcb-requests says I should free result of xcb_request_check
-		if (error)
-			throw std::runtime_error("xcb_kill_client returned error");
-	}
+	if (impl->pid && !::kill(impl->pid,SIGTERM))
+			return; // we successfully killed the process by its PID
+	// if we're still here, let's try to kill the window instead
+	// X11 has no security between clients, so we should probably succeed (but the app owning the window may be very surprised)
+	xcb_void_cookie_t kill_cookie = xcb_kill_client_checked(impl->conn, impl->wid);
+	std::unique_ptr<xcb_generic_error_t,decltype(&free)> error {xcb_request_check(impl->conn, kill_cookie),&free};
+	// man xcb-requests says I should free result of xcb_request_check
+	if (error)
+		throw std::runtime_error("xcb_kill_client returned error");
 }
 
 // work around unique_ptr asking for destructor while compiling public headers
