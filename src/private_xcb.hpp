@@ -2,14 +2,14 @@
 #include <memory>
 #include <stdexcept>
 
-struct XCB { // WindowWatcher should fill this while being constructed
+struct XCB {
 	static xcb_atom_t NET_ACTIVE_WINDOW;
 	static xcb_atom_t NET_WM_NAME;
 	static xcb_atom_t UTF8_STRING;
 	static xcb_atom_t NET_WM_PID;
 };
 
-struct ForeignWindowImpl {
+struct ForeignWindowImpl : public XCB {
 	xcb_connection_t* conn;
 	xcb_window_t wid;
 	pid_t pid;
@@ -24,8 +24,8 @@ struct ForeignWindowImpl {
 		);
 	}
 
-	std::string get_property(xcb_atom_t atom, size_t len) {
-		auto reply = get_property_reply(atom, XCB::UTF8_STRING, len);
+	std::string get_property(xcb_atom_t atom, size_t len, xcb_atom_t type = UTF8_STRING) {
+		auto reply = get_property_reply(atom, type, len);
 		return std::string(
 			reinterpret_cast<char*>(
 				xcb_get_property_value(
@@ -52,12 +52,15 @@ private:
 			conn, 0, wid, atom, type, 0, ret_size
 		);
 		unique_ptr<xcb_get_property_reply_t,decltype(&std::free)> reply {xcb_get_property_reply(conn, cookie, &err),&free};
+
 		if (!reply) {
-			if (err) {
-				free(err);
-				throw runtime_error("xcb_get_property returned error");
-			} else throw runtime_error("xcb_get_property returned nullptr and no error");
+			free(err);
+			throw runtime_error("xcb_get_property returned error");
 		}
+
+		if (len && !xcb_get_property_value_length(reply.get()))
+			throw runtime_error("xcb_get_property returned empty reply when requested size != 0");
+
 		return reply;
 	}
 };
