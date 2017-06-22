@@ -36,16 +36,6 @@ struct WindowWatcherImpl : public XCB {
 			throw std::runtime_error("Couldn't change window event mask");
 	}
 
-	void watch_window_title(const ForeignWindow & wnd) {
-		currently_watched = wnd.impl->wid;
-		set_window_events(wnd.impl->wid, XCB_EVENT_MASK_PROPERTY_CHANGE);
-	}
-
-	void unwatch_window(const ForeignWindow & wnd) {
-		currently_watched = 0;
-		set_window_events(wnd.impl->wid, XCB_EVENT_MASK_NO_EVENT);
-	}
-
 	void active_window_thread(thr_queue<WindowEvent> & q) try {
 		// get the root window
 		xcb_screen_t * screen = xcb_setup_roots_iterator(xcb_get_setup(conn.get())).data;
@@ -107,4 +97,14 @@ void WindowWatcher::run() {
 		// TODO: When we implement an actual termination command for the app, there'll be a flag about that
 		return;
 	}
+}
+
+void WindowWatcher::watch_window_title(const ForeignWindow & wnd) {
+	impl->currently_watched = wnd.impl->wid;
+	impl->set_window_events(wnd.impl->wid, XCB_EVENT_MASK_PROPERTY_CHANGE);
+}
+
+void WindowWatcher::unwatch_window() {
+	impl->set_window_events(impl->currently_watched, XCB_EVENT_MASK_NO_EVENT);
+	impl->currently_watched = 0;
 }

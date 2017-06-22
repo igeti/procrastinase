@@ -39,4 +39,6 @@ private:
 	thr_queue<WindowEvent> messages;
 	thr_timer tmr;
 	std::unique_ptr<WindowWatcherImpl> impl;
+	void watch_window_title(const ForeignWindow &);
+	void unwatch_window();
 };
